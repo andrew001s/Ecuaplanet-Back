@@ -1,18 +1,25 @@
 package com.grupo3.ecuaplanet.model;
 
-public class CajaDetalle {
+import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "caja_detalles")
+public class CajaDetalles {
+
+    @Id
+    @Column(name = "id_caja_detalle")
     private int idCajaDetalle;
+    @Column(name = "id_caja")
     private int idCaja;
+    @Column(name = "id_producto")
     private int idProducto;
-    private int fechaRegistro;
-
-    public CajaDetalle(int idCajaDetalle, int idCaja, int idProducto, int fechaRegistro) {
-        this.idCajaDetalle = idCajaDetalle;
-        this.idCaja = idCaja;
-        this.idProducto = idProducto;
-        this.fechaRegistro = fechaRegistro;
-    }
+    @Column(name = "fecha_registro")
+    private LocalDateTime fechaRegistro;
 
     public int getIdCajaDetalle() {
         return idCajaDetalle;
@@ -38,11 +45,11 @@ public class CajaDetalle {
         this.idProducto = idProducto;
     }
 
-    public int getFechaRegistro() {
+    public LocalDateTime getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(int fechaRegistro) {
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 

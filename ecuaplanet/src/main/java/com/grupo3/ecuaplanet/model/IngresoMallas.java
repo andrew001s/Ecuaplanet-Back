@@ -2,21 +2,25 @@ package com.grupo3.ecuaplanet.model;
 
 import java.time.LocalDateTime;
 
-public class IngresoMallas {
-    private int idIngresoMallas;
-    private int idVariedad;
-    private int cantidadMallasIngreso;
-    private LocalDateTime fechaHoraIngreso;
-    private int tallosPorMalla;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-    public IngresoMallas(int idIngresoMallas, int idVariedad, int cantidadMallasIngreso, LocalDateTime fechaHoraIngreso,
-            int tallosPorMalla) {
-        this.idIngresoMallas = idIngresoMallas;
-        this.idVariedad = idVariedad;
-        this.cantidadMallasIngreso = cantidadMallasIngreso;
-        this.fechaHoraIngreso = fechaHoraIngreso;
-        this.tallosPorMalla = tallosPorMalla;
-    }
+@Entity
+@Table(name = "ingreso_mallas")
+public class IngresoMallas {
+    @Id
+    @Column(name = "id_ingreso_mallas")
+    private int idIngresoMallas;
+    @Column(name = "id_variedad")
+    private int idVariedad;
+    @Column(name = "cantidad_mallas_ingreso")
+    private int cantidadMallasIngreso;
+    @Column(name = "fecha_hora_ingreso")
+    private LocalDateTime fechaHoraIngreso;
+    @Column(name = "tallos_por_malla")
+    private int tallosPorMalla;
 
     public int getIdIngresoMallas() {
         return idIngresoMallas;

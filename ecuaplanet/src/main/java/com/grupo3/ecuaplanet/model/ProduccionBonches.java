@@ -2,20 +2,24 @@ package com.grupo3.ecuaplanet.model;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "produccion_bonches")
 public class ProduccionBonches {
 
+    @Id
+    @Column(name = "id_produccion_bonche")
     private int idProduccionBonches;
+    @Column(name = "id_produccion")
     private int idProduccion;
+    @Column(name = "fecha_ingreso")
     private LocalDateTime fechaIngreso;
+    @Column(name = "estado_bonche")
     private String estadoBonche;
-
-    public ProduccionBonches(int idProduccionBonches, int idProduccion, LocalDateTime fechaIngreso,
-            String estadoBonche) {
-        this.idProduccionBonches = idProduccionBonches;
-        this.idProduccion = idProduccion;
-        this.fechaIngreso = fechaIngreso;
-        this.estadoBonche = estadoBonche;
-    }
 
     public int getIdProduccionBonches() {
         return idProduccionBonches;

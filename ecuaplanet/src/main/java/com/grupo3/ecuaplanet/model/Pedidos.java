@@ -2,18 +2,23 @@ package com.grupo3.ecuaplanet.model;
 
 import java.time.LocalDate;
 
-public class Pedidos {
-    private int idPedido;
-    private int idCliente;
-    private LocalDate fechaVenta;
-    private double montoTotalVenta;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-    public Pedidos(int idPedido, int idCliente, LocalDate fechaVenta, double montoTotalVenta) {
-        this.idPedido = idPedido;
-        this.idCliente = idCliente;
-        this.fechaVenta = fechaVenta;
-        this.montoTotalVenta = montoTotalVenta;
-    }
+@Entity
+@Table(name = "pedidos")
+public class Pedidos {
+    @Id
+    @Column(name = "id_pedido")
+    private int idPedido;
+    @Column(name = "id_cliente")
+    private int idCliente;
+    @Column(name = "fecha_venta")
+    private LocalDate fechaVenta;
+    @Column(name = "monto_total_venta")
+    private double montoTotalVenta;
 
     public int getIdPedido() {
         return idPedido;

@@ -1,13 +1,19 @@
 package com.grupo3.ecuaplanet.model;
 
-public class Cajas {
-    private int idCaja;
-    private int idPedido;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-    public Cajas(int idCaja, int idPedido) {
-        this.idCaja = idCaja;
-        this.idPedido = idPedido;
-    }
+@Entity
+@Table(name = "cajas")
+public class Cajas {
+
+    @Id
+    @Column(name = "id_caja")
+    private int idCaja;
+    @Column(name = "id_pedido")
+    private int idPedido;
 
     public int getIdCaja() {
         return idCaja;
