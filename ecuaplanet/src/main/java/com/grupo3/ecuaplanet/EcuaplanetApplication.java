@@ -5,9 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class EcuaplanetApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(EcuaplanetApplication.class, args);
-	}
-
+  public static void main(String[] args) {
+    SpringApplication.run(EcuaplanetApplication.class, args);
+  }
 }
