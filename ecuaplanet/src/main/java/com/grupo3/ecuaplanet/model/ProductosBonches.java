@@ -1,20 +1,25 @@
 package com.grupo3.ecuaplanet.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "productos_bonches")
 public class ProductosBonches {
 
+    @Id
+    @Column(name = "id_producto")
     private int idProducto;
+    @Column(name = "id_variedad")
     private int idVariedad;
+    @Column(name = "largo_bonche")
     private int largoBonche;
+    @Column(name = "tallos_por_bonche")
     private int tallosPorBonche;
+    @Column(name = "valor")
     private double valor;
-
-    public ProductosBonches(int idProducto, int idVariedad, int largoBonche, int tallosPorBonche, double valor) {
-        this.idProducto = idProducto;
-        this.idVariedad = idVariedad;
-        this.largoBonche = largoBonche;
-        this.tallosPorBonche = tallosPorBonche;
-        this.valor = valor;
-    }
 
     public int getIdProducto() {
         return idProducto;

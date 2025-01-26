@@ -1,18 +1,23 @@
 package com.grupo3.ecuaplanet.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "clientes")
 public class Clientes {
 
+    @Id
+    @Column(name = "id_cliente")
     private int idCliente;
+    @Column(name = "nombre_cliente")
     private String nombreCliente;
+    @Column(name = "pais_cliente")
     private String paisCliente;
+    @Column(name = "tipo_cliente")
     private String tipoCliente;
-
-    public Clientes(int idCliente, String nombreCliente, String paisCliente, String tipoCliente) {
-        this.idCliente = idCliente;
-        this.nombreCliente = nombreCliente;
-        this.paisCliente = paisCliente;
-        this.tipoCliente = tipoCliente;
-    }
 
     public int getIdCliente() {
         return idCliente;
