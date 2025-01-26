@@ -57,6 +57,7 @@ mvn install
 ### 2. Ejecutar desde la línea de comandos:
 
 ```bash
+cd .\ecuaplanet\  
 mvn spring-boot:run
 ```
 Esto iniciará el servidor de Spring Boot en el puerto `8080` de forma predeterminada.
@@ -66,8 +67,11 @@ Esto iniciará el servidor de Spring Boot en el puerto `8080` de forma predeterm
 2. Asegúrate de tener instaladas las siguientes extensiones:
 3. [Spring Boot Extension Pack](https://marketplace.visualstudio.com/items?itemName=vmware.vscode-boot-dev-pack)
 4. [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack)
+
 Si no las tienes, instálalas desde la sección de extensiones de VS Code.
 En la barra de herramientas podras ver un boton de power,dentro deberías ver un botón de Run cerca del nombre de la clase ecuaplanet. Haz clic en él para ejecutar la aplicación.
+Puedes revisar un tutorial en este video: [![Tutorial](https://i.ytimg.com/vi/7HY2-aMnrNM/maxresdefault.jpg)](https://www.youtube.com/watch?v=7HY2-aMnrNM)
+
 ---
 
 ## ⚖ Buenas prácticas
