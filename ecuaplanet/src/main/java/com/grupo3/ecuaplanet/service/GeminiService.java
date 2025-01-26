@@ -11,16 +11,17 @@ import reactor.core.publisher.Mono;
 @Service
 public class GeminiService {
 
-  @Autowired private WebClient.Builder webClientBuilder;
+    @Autowired
+    private WebClient.Builder webClientBuilder;
 
-  public Mono<GeminiResponseDto> getResponse(String text) {
-    return webClientBuilder
-        .build()
-        .post()
-        .uri(
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDnpmCfLhQu-AZErdW9_35FeKcwLFlurnE")
-        .bodyValue(text)
-        .retrieve()
-        .bodyToMono(GeminiResponseDto.class);
-  }
+    public Mono<GeminiResponseDto> getResponse(String text) {
+        return webClientBuilder
+          .build()
+          .post()
+          .uri(
+              "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDnpmCfLhQu-AZErdW9_35FeKcwLFlurnE")
+          .bodyValue(text)
+          .retrieve()
+          .bodyToMono(GeminiResponseDto.class);
+    }
 }
