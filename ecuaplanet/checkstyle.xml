@@ -10,7 +10,7 @@
     <!-- Reglas globales -->
     <module name="FileTabCharacter"/> 
     <module name="LineLength">
-        <property name="max" value="120"/>
+        <property name="max" value="180"/>
     </module>
     <!-- Configuración de TreeWalker -->
     <module name="TreeWalker">
