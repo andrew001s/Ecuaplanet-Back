@@ -4,13 +4,13 @@ import java.util.List;
 
 public class GeminiResponseDto {
 
-  private List<CandidateDto> candidates;
+    private List<CandidateDto> candidates;
 
-  public List<CandidateDto> getCandidates() {
-    return candidates;
-  }
+    public List<CandidateDto> getCandidates() {
+        return candidates;
+    }
 
-  public void setCandidates(List<CandidateDto> candidates) {
-    this.candidates = candidates;
-  }
+    public void setCandidates(List<CandidateDto> candidates) {
+        this.candidates = candidates;
+    }
 }
