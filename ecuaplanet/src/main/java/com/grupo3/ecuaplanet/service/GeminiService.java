@@ -21,20 +21,14 @@ public class GeminiService {
     private WebClient.Builder webClientBuilder;
 
     @Autowired
-    private IngresoMallasService ingresoMallasService;
+    private CultivoService ingresoMallasService;
 
-    public Mono<GeminiResponseDto> getResponse(String text) {
+    @Autowired
+    private ProduccionService produccionService;
+
+    public Mono<GeminiResponseDto> getCultivo(String text) {
         List<CultivoDto> cultivo = ingresoMallasService.obtenercultivo();
-        for (CultivoDto cultivoDto : cultivo) {
-            text += "Nombre Variedad:" + cultivoDto.getNombreVariedad() + "|" +
-                    "Color Variedad:" + cultivoDto.getColorVariedad() + "|" +
-                    "Bloque:" + cultivoDto.getBloque() + "|" +
-                    "Camas Variedad:" + cultivoDto.getCamasVariedad() + "|" +
-                    "Cantidad Mallas Ingreso:" + cultivoDto.getCantidadMallasIngreso() + "|" +
-                    "Fecha Hora Ingreso:" + cultivoDto.getFechaHoraIngreso() + "|" +
-                    "Tallos Por Malla:" + cultivoDto.getTallosPorMalla() +
-                    " \n";
-        }
+        text+=  ingresoMallasService.listToString(cultivo);
         PartDto part = new PartDto(text);
         ContentDto contents = new ContentDto(List.of(part));
         BodyGeminiDto body = new BodyGeminiDto(contents);
@@ -48,5 +42,7 @@ public class GeminiService {
                 .retrieve()
                 .bodyToMono(GeminiResponseDto.class);
     }
+
+    
 
 }

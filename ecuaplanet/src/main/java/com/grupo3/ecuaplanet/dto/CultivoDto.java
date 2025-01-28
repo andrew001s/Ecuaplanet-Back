@@ -79,4 +79,5 @@ public class CultivoDto {
     public void setTallosPorMalla(int tallosPorMalla) {
         this.tallosPorMalla = tallosPorMalla;
     }
+
 }
