@@ -19,11 +19,16 @@ public class GeminiController {
     @Autowired
     private GeminiService geminiService;
     
+    private final static String PROMP_STRING = "Eres un asistente que ayuda a los usuarios a obtener información de una base de datos de una floricola. \n" + //
+                "Responde las preguntas del usuario basándote *únicamente* en la siguiente información extraída de la base de datos.\n" + //
+                "Si no puedes responder la pregunta con la información dada, responde: \"No tengo información suficiente para responder esa pregunta\". \n" + //
+                "No inventes información. \n" ;
+    
     @PostMapping("/cultivo")
     public Mono<GeminiResponseDto> getCultivo(@RequestBody RequestGeminiDto requestGeminiDto) {
 
-        String response = requestGeminiDto.getText() + " \n";
-        return geminiService.getResponse(response);
+        String response = PROMP_STRING + requestGeminiDto.getText() + " \n";
+        return geminiService.getCultivo(response);
     }
 
     @PostMapping("/produccion")
@@ -32,7 +37,7 @@ public class GeminiController {
         String response = requestGeminiDto.getText() + " \n";
       
        
-        return geminiService.getResponse(response);
+        return geminiService.getCultivo(response);
 
     }
     
