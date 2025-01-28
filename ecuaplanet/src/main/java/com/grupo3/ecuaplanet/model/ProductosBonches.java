@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "productos_bonches")
-public class ProductoBonches {
+public class ProductosBonches {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,8 +34,9 @@ public class ProductoBonches {
     @Column(name = "valor")
     private double valor;
 
-    @OneToMany(mappedBy = "producto_bonches")
-    private List<ProductoBonches> productoBonches;
+   
+    @OneToMany(mappedBy = "productoBonches")
+    private List<ProduccionBonches> produccionBonches;
 
     public int getIdProducto() {
         return idProducto;
@@ -77,12 +78,11 @@ public class ProductoBonches {
         this.valor = valor;
     }
 
-    public List<ProductoBonches> getProductoBonches() {
-        return productoBonches;
+    public List<ProduccionBonches> getProduccionBonches() {
+        return produccionBonches;
     }
 
-    public void setProductoBonches(List<ProductoBonches> productoBonches) {
-        this.productoBonches = productoBonches;
+    public void setProduccionBonches(List<ProduccionBonches> produccionBonches) {
+        this.produccionBonches = produccionBonches;
     }
-
 }
