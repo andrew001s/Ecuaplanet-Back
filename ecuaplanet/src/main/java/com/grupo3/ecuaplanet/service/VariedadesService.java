@@ -13,7 +13,8 @@ public class VariedadesService {
     @Autowired
     private VariedadesRepository variedadesRepository;
 
-    public List<Variedades> getVariedadesRepository() {
+    public List<Variedades> getAllVariedades() {
         return variedadesRepository.findAll();
     }
+    
 }

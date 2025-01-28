@@ -1,8 +1,13 @@
 package com.grupo3.ecuaplanet.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -10,24 +15,24 @@ import jakarta.persistence.Table;
 public class Variedades {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_variedad")
     private int idVariedad;
+
     @Column(name = "nombre_variedad")
     private String nombreVariedad;
+
     @Column(name = "color_variedad")
     private String colorVariedad;
+
     @Column(name = "bloque")
     private int bloque;
+
     @Column(name = "camas_variedad")
     private int camasVariedad;
 
-    public int getIdVariedad() {
-        return idVariedad;
-    }
-
-    public void setIdVariedad(int idVariedad) {
-        this.idVariedad = idVariedad;
-    }
+    @OneToMany(mappedBy = "variedades")
+    private List<IngresoMallas> ingresoMallas;
 
     public String getNombreVariedad() {
         return nombreVariedad;
@@ -60,5 +65,23 @@ public class Variedades {
     public void setCamasVariedad(int camasVariedad) {
         this.camasVariedad = camasVariedad;
     }
+
+    public int getIdVariedad() {
+        return idVariedad;
+    }
+
+    public void setIdVariedad(int idVariedad) {
+        this.idVariedad = idVariedad;
+    }
+
+    public List<IngresoMallas> getIngresoMallas() {
+        return ingresoMallas;
+    }
+
+    public void setIngresoMallas(List<IngresoMallas> ingresoMallas) {
+        this.ingresoMallas = ingresoMallas;
+    }
+
+    
 
 }
