@@ -7,12 +7,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ClientesRepository extends JpaRepository<Clientes, Long> {
 
     // 1. Buscar clientes por nombre
-    List<Clientes> findByNombreCliente(String nombreCliente);
+    Optional<Clientes> findByNombreCliente(String nombreCliente);
 
     // 2. Buscar clientes por país
     List<Clientes> findByPaisCliente(String paisCliente);
