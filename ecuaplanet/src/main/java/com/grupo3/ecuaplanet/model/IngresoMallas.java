@@ -1,22 +1,29 @@
 package com.grupo3.ecuaplanet.model;
 
-import java.time.LocalDateTime;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "ingreso_mallas")
 public class IngresoMallas {
-    private int idIngresoMallas;
-    private int idVariedad;
-    private int cantidadMallasIngreso;
-    private LocalDateTime fechaHoraIngreso;
-    private int tallosPorMalla;
 
-    public IngresoMallas(int idIngresoMallas, int idVariedad, int cantidadMallasIngreso, LocalDateTime fechaHoraIngreso,
-            int tallosPorMalla) {
-        this.idIngresoMallas = idIngresoMallas;
-        this.idVariedad = idVariedad;
-        this.cantidadMallasIngreso = cantidadMallasIngreso;
-        this.fechaHoraIngreso = fechaHoraIngreso;
-        this.tallosPorMalla = tallosPorMalla;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_ingreso_mallas")
+    private int idIngresoMallas;
+
+    @ManyToOne
+    @JoinColumn(name = "id_variedad")
+    private Variedades variedades;
+
+    @Column(name = "cantidad_mallas_ingreso")
+    private int cantidadMallas;
 
     public int getIdIngresoMallas() {
         return idIngresoMallas;
@@ -26,36 +33,23 @@ public class IngresoMallas {
         this.idIngresoMallas = idIngresoMallas;
     }
 
-    public int getIdVariedad() {
-        return idVariedad;
+    public Variedades getVariedades() {
+        return variedades;
     }
 
-    public void setIdVariedad(int idVariedad) {
-        this.idVariedad = idVariedad;
+    public void setVariedades(Variedades variedades) {
+        this.variedades = variedades;
     }
 
-    public int getCantidadMallasIngreso() {
-        return cantidadMallasIngreso;
+    
+    public int getCantidadMallas() {
+        return cantidadMallas;
     }
 
-    public void setCantidadMallasIngreso(int cantidadMallasIngreso) {
-        this.cantidadMallasIngreso = cantidadMallasIngreso;
+    public void setCantidadMallas(int cantidadMallas) {
+        this.cantidadMallas = cantidadMallas;
     }
+    
 
-    public LocalDateTime getFechaHoraIngreso() {
-        return fechaHoraIngreso;
-    }
-
-    public void setFechaHoraIngreso(LocalDateTime fechaHoraIngreso) {
-        this.fechaHoraIngreso = fechaHoraIngreso;
-    }
-
-    public int getTallosPorMalla() {
-        return tallosPorMalla;
-    }
-
-    public void setTallosPorMalla(int tallosPorMalla) {
-        this.tallosPorMalla = tallosPorMalla;
-    }
 
 }

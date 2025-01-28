@@ -1,97 +1,60 @@
 package com.grupo3.ecuaplanet.service;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import com.grupo3.ecuaplanet.dto.BodyGeminiDto;
+import com.grupo3.ecuaplanet.dto.ContentDto;
+import com.grupo3.ecuaplanet.dto.CultivoDto;
+import com.grupo3.ecuaplanet.dto.GeminiResponseDto;
+import com.grupo3.ecuaplanet.dto.PartDto;
+import com.grupo3.ecuaplanet.dto.ProduccionDto;
+
 import reactor.core.publisher.Mono;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 @Service
 public class GeminiService {
 
-    @Value("${gemini.api.model.name}")
-    private String modelName;
+    @Autowired
+    private WebClient.Builder webClientBuilder;
 
-    @Value("${gemini.api.key}")
-    private String apiKey;
+    @Autowired
+    private CultivoService ingresoMallasService;
 
-    private final WebClient webClient;
-    private final Gson gson = new Gson();
+    @Autowired
+    private ProduccionService produccionService;
 
-    public GeminiService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder
-                .baseUrl("https://generativelanguage.googleapis.com/v1beta/models/" + modelName + ":generateContent")
-                .build();
+    public Mono<GeminiResponseDto> getCultivo(String text) {
+        List<CultivoDto> cultivo = ingresoMallasService.obtenercultivo();
+        text+=  ingresoMallasService.listToString(cultivo);
+        
+        return makeGeminiRequest(text);
     }
 
-    public Mono<String> getResponse(String text) {
-        String requestBody = "{\n" +
-                "  \"contents\": [\n" +
-                "    {\n" +
-                "      \"role\": \"user\",\n" +
-                "      \"parts\": [\n" +
-                "        {\n" +
-                "          \"text\": \"" + text
-                + ". Devuelve la respuesta en formato JSON con los campos 'text' y 'valor'.\"\n" +
-                "        }\n" +
-                "      ]\n" +
-                "    }\n" +
-                "  ],\n" +
-                "  \"generationConfig\": {\n" +
-                "    \"temperature\": 0.9,\n" +
-                "    \"topK\": 16,\n" +
-                "    \"topP\": 0.1,\n" +
-                "    \"maxOutputTokens\": 2048,\n" +
-                "    \"stopSequences\": []\n" +
-                "  }\n" +
-                "}";
+    public Mono<GeminiResponseDto> getProduccion(String text) {
+        List<ProduccionDto> produccion = produccionService.obtenerProduccion();
+        text+=  produccionService.listToString(produccion);
+        return makeGeminiRequest(text);
+    }
+    
+    @Async
+    private Mono<GeminiResponseDto> makeGeminiRequest(String text) {
+        
+        PartDto part = new PartDto(text);
+        ContentDto contents = new ContentDto(List.of(part));
+        BodyGeminiDto body = new BodyGeminiDto(contents);
 
-        return webClient
+        return webClientBuilder
+                .build()
                 .post()
-                .uri("?key=" + apiKey)
-                .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(requestBody)
+                .uri("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDnpmCfLhQu-AZErdW9_35FeKcwLFlurnE")
+                .bodyValue(body)
                 .retrieve()
-                .bodyToMono(String.class) // Recibir la respuesta como String
-                .map(response -> {
-                    try {
-                        // Intentar parsear la respuesta a un JsonObject
-                        JsonObject jsonResponse = gson.fromJson(response, JsonObject.class);
-
-                        // Verificar si la respuesta contiene la estructura esperada
-                        if (jsonResponse.has("candidates")) {
-                            String respuestaTexto = jsonResponse.getAsJsonArray("candidates")
-                                    .get(0).getAsJsonObject()
-                                    .getAsJsonObject("content")
-                                    .getAsJsonArray("parts")
-                                    .get(0).getAsJsonObject()
-                                    .get("text").getAsString();
-
-                            // Intentar extraer un valor numérico de la respuesta de texto
-
-                            String valorNumerico = respuestaTexto.replaceAll("[^0-9]", ""); // Eliminar todo lo que no
-                                                                                            // sea un dígito
-
-                            if (valorNumerico.isEmpty()) {
-                                valorNumerico = "0"; // Valor por defecto si no se encuentra un número
-                            }
-
-                            // Construir el JSON de respuesta
-                            return "{\"text\": \"" + respuestaTexto + "\", \"valor\": " + valorNumerico + "}";
-                        } else {
-                            return "{\"text\": \"Respuesta inesperada de la API de Gemini.\", \"valor\": 0}";
-                        }
-                    } catch (Exception e) {
-                        // Manejar errores de parseo o formato
-                        System.err.println("Error al parsear la respuesta JSON: " + e.getMessage());
-                        return "{\"text\": \"Error al procesar la respuesta de la API.\", \"valor\": 0}";
-                    }
-                })
-                .onErrorResume(e -> {
-                    System.err.println("Error al llamar a la API de Gemini: " + e.getMessage());
-                    return Mono.just("{\"text\": \"Error al comunicarse con la API de Gemini.\", \"valor\": 0}");
-                });
+                .bodyToMono(GeminiResponseDto.class);
     }
+
 }

@@ -16,4 +16,7 @@ public class ContentDto {
     public void setParts(List<PartDto> parts) {
         this.parts = parts;
     }
+
+
+
 }

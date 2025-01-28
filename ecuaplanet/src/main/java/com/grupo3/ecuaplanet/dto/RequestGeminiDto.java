@@ -1,11 +1,12 @@
 package com.grupo3.ecuaplanet.dto;
 
-public class PartDto {
+public class RequestGeminiDto {
     private String text;
 
-    public PartDto(String text) {
+    public RequestGeminiDto(String text) {
         this.text = text;
     }
+
     public String getText() {
         return text;
     }
@@ -13,7 +14,5 @@ public class PartDto {
     public void setText(String text) {
         this.text = text;
     }
-
-
-
+    
 }

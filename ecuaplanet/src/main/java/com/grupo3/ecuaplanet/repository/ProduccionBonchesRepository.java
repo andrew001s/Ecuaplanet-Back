@@ -1,28 +1,26 @@
 package com.grupo3.ecuaplanet.repository;
 
+import com.grupo3.ecuaplanet.dto.ProduccionDto;
 import com.grupo3.ecuaplanet.model.ProduccionBonches;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
 @Repository
-public interface ProduccionBonchesRepository extends JpaRepository<ProduccionBonches, Long> {
+public interface ProduccionBonchesRepository extends JpaRepository<ProduccionBonches, Integer> {
 
-    // 1. Buscar producciones de bonches por ID de producto
-    List<ProduccionBonches> findByProductosBonchesIdProducto(Long idProducto);
+    @Query(value = "SELECT v.nombre_variedad AS nombreVariedad, v.color_variedad AS colorVariedad, " +
+            "pb.largo_bonche AS largoBonche, pb.tallos_por_bonche AS tallosPorBonche, " +
+            "p.fecha_ingreso AS fechaIngreso, " +
+            "pb.valor AS valor, " +
+            "p.estado_bonche AS estadoBonche " +
+            "FROM produccion_bonches p " +
+            "JOIN productos_bonches pb ON pb.id_producto = p.id_producto " +
+            "JOIN variedades v ON v.id_variedad = pb.id_variedad", 
+            nativeQuery = true)
+    List<ProduccionDto> obtenerProduccion();
 
-    // 2. Buscar producciones de bonches en un rango de fechas de ingreso
-    List<ProduccionBonches> findByFechaIngresoBetween(LocalDateTime fechaInicio, LocalDateTime fechaFin);
-
-    // 3. Buscar producciones de bonches por estado de bonche
-    List<ProduccionBonches> findByEstadoBonche(String estadoBonche);
-
-    // 4. Ejemplo: Encontrar la producción de bonche con la fecha de ingreso más
-    // reciente para un producto específico
-    @Query("SELECT pb FROM ProduccionBonches pb WHERE pb.productosBonches.idProducto = :idProducto ORDER BY pb.fechaIngreso DESC")
-    List<ProduccionBonches> findLatestByProducto(@Param("idProducto") Long idProducto);
 }

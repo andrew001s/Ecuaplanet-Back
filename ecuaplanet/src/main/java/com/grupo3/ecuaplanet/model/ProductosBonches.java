@@ -1,20 +1,42 @@
 package com.grupo3.ecuaplanet.model;
 
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "productos_bonches")
 public class ProductosBonches {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_producto")
     private int idProducto;
-    private int idVariedad;
+
+    @ManyToOne
+    @JoinColumn(name = "id_variedad")
+    private Variedades variedades;
+
+    @Column(name = "largo_bonche")
     private int largoBonche;
+
+    @Column(name = "tallos_por_bonche")
     private int tallosPorBonche;
+
+    @Column(name = "valor")
     private double valor;
 
-    public ProductosBonches(int idProducto, int idVariedad, int largoBonche, int tallosPorBonche, double valor) {
-        this.idProducto = idProducto;
-        this.idVariedad = idVariedad;
-        this.largoBonche = largoBonche;
-        this.tallosPorBonche = tallosPorBonche;
-        this.valor = valor;
-    }
+   
+    @OneToMany(mappedBy = "productoBonches")
+    private List<ProduccionBonches> produccionBonches;
 
     public int getIdProducto() {
         return idProducto;
@@ -24,12 +46,12 @@ public class ProductosBonches {
         this.idProducto = idProducto;
     }
 
-    public int getIdVariedad() {
-        return idVariedad;
+    public Variedades getVariedades() {
+        return variedades;
     }
 
-    public void setIdVariedad(int idVariedad) {
-        this.idVariedad = idVariedad;
+    public void setVariedades(Variedades variedades) {
+        this.variedades = variedades;
     }
 
     public int getLargoBonche() {
@@ -56,4 +78,11 @@ public class ProductosBonches {
         this.valor = valor;
     }
 
+    public List<ProduccionBonches> getProduccionBonches() {
+        return produccionBonches;
+    }
+
+    public void setProduccionBonches(List<ProduccionBonches> produccionBonches) {
+        this.produccionBonches = produccionBonches;
+    }
 }

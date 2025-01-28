@@ -1,43 +1,56 @@
 package com.grupo3.ecuaplanet.model;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "produccion_bonches")
 public class ProduccionBonches {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_produccion_bonche")
+    private int idProduccionBonche;
 
-    private int idProduccionBonches;
-    private int idProduccion;
-    private LocalDateTime fechaIngreso;
+    @ManyToOne
+    @JoinColumn(name = "id_producto")
+    private ProductosBonches productoBonches;
+
+    @Column(name = "fecha_ingreso")
+    private Timestamp fechaIngreso;
+    
+    @Column(name = "estado_bonche")
     private String estadoBonche;
 
-    public ProduccionBonches(int idProduccionBonches, int idProduccion, LocalDateTime fechaIngreso,
-            String estadoBonche) {
-        this.idProduccionBonches = idProduccionBonches;
-        this.idProduccion = idProduccion;
-        this.fechaIngreso = fechaIngreso;
-        this.estadoBonche = estadoBonche;
+    public int getIdProduccionBonche() {
+        return idProduccionBonche;
     }
 
-    public int getIdProduccionBonches() {
-        return idProduccionBonches;
+    public void setIdProduccionBonche(int idProduccionBonche) {
+        this.idProduccionBonche = idProduccionBonche;
     }
 
-    public void setIdProduccionBonches(int idProduccionBonches) {
-        this.idProduccionBonches = idProduccionBonches;
+    public ProductosBonches getProductoBonches() {
+        return productoBonches;
     }
 
-    public int getIdProduccion() {
-        return idProduccion;
+    public void setProductoBonches(ProductosBonches productoBonches) {
+        this.productoBonches = productoBonches;
     }
 
-    public void setIdProduccion(int idProduccion) {
-        this.idProduccion = idProduccion;
-    }
-
-    public LocalDateTime getFechaIngreso() {
+    public Timestamp getFechaIngreso() {
         return fechaIngreso;
     }
 
-    public void setFechaIngreso(LocalDateTime fechaIngreso) {
+    public void setFechaIngreso(Timestamp fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
     }
 
@@ -48,5 +61,7 @@ public class ProduccionBonches {
     public void setEstadoBonche(String estadoBonche) {
         this.estadoBonche = estadoBonche;
     }
+
+    
 
 }
