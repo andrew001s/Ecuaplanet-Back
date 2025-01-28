@@ -34,10 +34,8 @@ public class GeminiController {
     @PostMapping("/produccion")
     public Mono<GeminiResponseDto> getProduccion(@RequestBody RequestGeminiDto requestGeminiDto) {
         
-        String response = requestGeminiDto.getText() + " \n";
-      
-       
-        return geminiService.getCultivo(response);
+        String response = PROMP_STRING + requestGeminiDto.getText() + " \n";
+        return geminiService.getProduccion(response);
 
     }
     

@@ -22,7 +22,7 @@ public class ProduccionBonches {
 
     @ManyToOne
     @JoinColumn(name = "id_producto")
-    private ProductoBonches productoBonches;
+    private ProductosBonches productoBonches;
 
     @Column(name = "fecha_ingreso")
     private Timestamp fechaIngreso;
@@ -38,11 +38,11 @@ public class ProduccionBonches {
         this.idProduccionBonche = idProduccionBonche;
     }
 
-    public ProductoBonches getProductoBonches() {
+    public ProductosBonches getProductoBonches() {
         return productoBonches;
     }
 
-    public void setProductoBonches(ProductoBonches productoBonches) {
+    public void setProductoBonches(ProductosBonches productoBonches) {
         this.productoBonches = productoBonches;
     }
 

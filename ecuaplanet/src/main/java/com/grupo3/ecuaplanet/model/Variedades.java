@@ -35,7 +35,7 @@ public class Variedades {
     private List<IngresoMallas> ingresoMallas;
 
     @OneToMany(mappedBy = "variedades")
-    private List<ProductoBonches> productoBonches;
+    private List<ProductosBonches> productoBonches;
 
     public String getNombreVariedad() {
         return nombreVariedad;
@@ -85,11 +85,11 @@ public class Variedades {
         this.ingresoMallas = ingresoMallas;
     }
 
-    public List<ProductoBonches> getProductoBonches() {
+    public List<ProductosBonches> getProductoBonches() {
         return productoBonches;
     }
 
-    public void setProductoBonches(List<ProductoBonches> productoBonches) {
+    public void setProductoBonches(List<ProductosBonches> productoBonches) {
         this.productoBonches = productoBonches;
     }
     
