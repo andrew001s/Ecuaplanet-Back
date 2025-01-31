@@ -22,7 +22,7 @@ public interface ProduccionBonchesRepository extends JpaRepository<ProduccionBon
             + "FROM produccion_bonches p "
             + "JOIN productos_bonches pb ON p.id_producto = pb.id_producto "
             + "JOIN variedades v ON v.id_variedad = pb.id_variedad "
-            + "WHERE 1 - (p.embedding <=> CAST(:queryVector AS vector)) > 0.40 "
+            + "WHERE 1 - (p.embedding <=> CAST(:queryVector AS vector)) > 0.5 "
             + "ORDER BY similarity DESC", nativeQuery = true)
     List<ProduccionDto> obtenerProduccion(@Param("queryVector") String queryVector);
 }

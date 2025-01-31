@@ -17,9 +17,11 @@ import com.grupo3.ecuaplanet.dto.EmbeddingDto;
 import com.grupo3.ecuaplanet.dto.GeminiResponseDto;
 import com.grupo3.ecuaplanet.dto.ProduccionDto;
 import com.grupo3.ecuaplanet.dto.RequestGeminiDto;
+import com.grupo3.ecuaplanet.dto.VentasDto;
 import com.grupo3.ecuaplanet.service.CultivoService;
 import com.grupo3.ecuaplanet.service.GeminiService;
 import com.grupo3.ecuaplanet.service.ProduccionService;
+import com.grupo3.ecuaplanet.service.VentaService;
 
 import reactor.core.publisher.Mono;
 
@@ -37,6 +39,9 @@ public class GeminiController {
     @Autowired
     private ProduccionService produccionService;
 
+    @Autowired
+    private VentaService ventaService;
+
     @PostMapping("/cultivo")
     public Mono<GeminiResponseDto> getCultivo(@RequestBody RequestGeminiDto requestGeminiDto) {
         String response = requestGeminiDto.getText();
@@ -44,7 +49,7 @@ public class GeminiController {
         String arrays = Arrays.toString(embeddingDto.getEmbedding().getValues());
         List<CultivoDto> cultivo = cultivoService.obtenercultivo(arrays);
         response += GeminiConstants.PROMP_STRING + cultivoService.listToString(cultivo);
-        return geminiService.getCultivo(response);
+        return geminiService.getRequest(response);
     }
 
     @PostMapping("/produccion")
@@ -54,7 +59,18 @@ public class GeminiController {
         String arrays = Arrays.toString(embeddingDto.getEmbedding().getValues());
         List<ProduccionDto> produccion = produccionService.obtenerProduccion(arrays); 
         response += GeminiConstants.PROMP_STRING + produccionService.listToString(produccion);
-        return geminiService.getProduccion(response);
-
+        return geminiService.getRequest(response);
     }
+
+    @PostMapping("/ventas")
+    public Mono<GeminiResponseDto> getVentas(@RequestBody RequestGeminiDto requestGeminiDto) {
+        String response = requestGeminiDto.getText();
+        EmbeddingDto embeddingDto = geminiService.getEmbedding(response);
+        String arrays = Arrays.toString(embeddingDto.getEmbedding().getValues());
+        List<VentasDto> ventas = ventaService.obtenerVentas(arrays); 
+        response += GeminiConstants.PROMP_STRING + ventaService.listToString(ventas);
+        return geminiService.getRequest(response);
+    }
+    
+    
 }

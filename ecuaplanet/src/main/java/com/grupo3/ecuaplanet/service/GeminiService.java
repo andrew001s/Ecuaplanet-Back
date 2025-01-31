@@ -21,11 +21,7 @@ public class GeminiService {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    public Mono<GeminiResponseDto> getCultivo(String text) {
-        return makeGeminiRequest(text);
-    }
-
-    public Mono<GeminiResponseDto> getProduccion(String text) {
+    public Mono<GeminiResponseDto> getRequest(String text) {
         return makeGeminiRequest(text);
     }
     
