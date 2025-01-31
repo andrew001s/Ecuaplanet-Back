@@ -5,25 +5,35 @@ import java.sql.Timestamp;
 public class CultivoDto {
 
     private String nombreVariedad;
-    private String colorVariedad;
-    private int bloque;
     private int camasVariedad;
+    private int bloque;
+    private String colorVariedad;
     private int cantidadMallasIngreso;
     private Timestamp fechaHoraIngreso;
     private int tallosPorMalla;
+    private double similarity;
 
-    public CultivoDto(String nombreVariedad, String colorVariedad, int bloque, int camasVariedad,
-            int cantidadMallasIngreso, Timestamp fechaHoraIngreso, int tallosPorMalla) {
+
+    public CultivoDto(String nombreVariedad, int camasVariedad, int bloque, String colorVariedad,
+            int cantidadMallasIngreso, Timestamp fechaHoraIngreso, int tallosPorMalla, double similarity) {
         this.nombreVariedad = nombreVariedad;
-        this.colorVariedad = colorVariedad;
-        this.bloque = bloque;
         this.camasVariedad = camasVariedad;
+        this.bloque = bloque;
+        this.colorVariedad = colorVariedad;
         this.cantidadMallasIngreso = cantidadMallasIngreso;
         this.fechaHoraIngreso = fechaHoraIngreso;
         this.tallosPorMalla = tallosPorMalla;
-
+        this.similarity = similarity;
     }
 
+    public double getSimilarity() {
+        return similarity;
+    }
+
+    public void setSimilarity(double similarity) {
+        this.similarity = similarity;
+    }
+    
     public String getNombreVariedad() {
         return nombreVariedad;
     }
@@ -79,4 +89,5 @@ public class CultivoDto {
     public void setTallosPorMalla(int tallosPorMalla) {
         this.tallosPorMalla = tallosPorMalla;
     }
+
 }
