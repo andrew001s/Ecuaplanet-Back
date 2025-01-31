@@ -3,6 +3,7 @@ package com.grupo3.ecuaplanet.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -17,6 +18,10 @@ import reactor.core.publisher.Mono;
 
 @Service
 public class GeminiService {
+
+    @Value("${gemini.api.key}")
+    private String ApiKey;
+
 
     @Autowired
     private WebClient.Builder webClientBuilder;
@@ -35,7 +40,7 @@ public class GeminiService {
         return webClientBuilder
                 .build()
                 .post()
-                .uri("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDnpmCfLhQu-AZErdW9_35FeKcwLFlurnE")
+                .uri("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + ApiKey)
                 .bodyValue(body)
                 .retrieve()
                 .bodyToMono(GeminiResponseDto.class);
@@ -46,7 +51,7 @@ public class GeminiService {
         return webClientBuilder
                 .build()
                 .post()
-                .uri("https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=AIzaSyDnpmCfLhQu-AZErdW9_35FeKcwLFlurnE")
+                .uri("https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=" + ApiKey)
                 .header("Content-Type", "application/json")
                 .bodyValue("{\"model\": \"models/text-embedding-004\", \"content\": {\"parts\": [{\"text\": \"" + text + "\"}]}}")
                 .retrieve()
