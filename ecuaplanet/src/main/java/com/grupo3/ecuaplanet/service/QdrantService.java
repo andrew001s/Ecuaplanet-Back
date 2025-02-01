@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.grupo3.ecuaplanet.config.QdrantConfig;
 import com.grupo3.ecuaplanet.dto.EmbeddingDto;
 
 import reactor.core.publisher.Mono;
@@ -14,16 +15,15 @@ import reactor.core.publisher.Mono;
 @Service
 public class QdrantService {
 
-    private static final String QDRANT_URL = "http://54.208.59.167:6333";
-
     private final WebClient webClient;
 
     @Autowired
     private GeminiService geminiService;
 
 
-    public QdrantService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl(QDRANT_URL).build();
+    
+    public QdrantService(WebClient.Builder webClientBuilder, QdrantConfig qdrantConfig) {
+        this.webClient = webClientBuilder.baseUrl(qdrantConfig.getQdrantUrl()).build();
     }
 
     public Mono<String> search(String embedding,String collection) {
