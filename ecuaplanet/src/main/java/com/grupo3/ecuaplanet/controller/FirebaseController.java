@@ -33,7 +33,7 @@ public class FirebaseController {
         try {
             String uid = firebaseAuthService.verifyToken(token);
             logger.info("UID obtenido del token: {}", uid);
-            if (uid == null || uid.isEmpty()) { // Verifica si el UID es válido
+            if (uid == null || uid.isEmpty()) { 
                 logger.error("UID inválido o vacío.");
                 return ResponseEntity.status(HttpStatus.SC_UNAUTHORIZED).body("Token inválido o UID no encontrado.");
             }
@@ -41,11 +41,11 @@ public class FirebaseController {
             logger.info("Intentando obtener datos de Firestore para UID: {}", uid);
             Map<String, Object> userData = firebaseAuthService.getUserDataFromFirestore(uid);
 
-            if (userData != null && !userData.isEmpty()) { // Verifica si userData no es nulo ni vacío
+            if (userData != null && !userData.isEmpty()) { 
                 logger.info("Datos del usuario recibidos de Firestore: {}", userData);
                 return ResponseEntity.ok(userData);
             } else {
-                logger.warn("No se encontraron datos para el usuario con UID: {}", uid); // Log de advertencia
+                logger.warn("No se encontraron datos para el usuario con UID: {}", uid);
                 return ResponseEntity.status(HttpStatus.SC_NOT_FOUND).body("Usuario no encontrado en Firestore o datos vacíos.");
             }
 
