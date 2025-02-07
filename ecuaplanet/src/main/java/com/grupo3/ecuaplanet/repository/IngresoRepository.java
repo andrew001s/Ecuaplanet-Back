@@ -14,7 +14,7 @@ public class IngresoRepository{
     public List<Object[]> obtenerPedidoMayorVenta(){
         String sql="SELECT cl.nombre_cliente,cl.tipo_cliente,cl.pais_cliente,p.id_pedido,p.monto_total_venta"+
         " FROM pedidos p JOIN clientes cl ON p.id_cliente = cl.id_cliente"+
-        " WHERE p.monto_total_venta=(select MAX(monto_total_venta)FROM pedidos WHERE id_cliente=p.id_cliente) LIMIT 1";
+        " WHERE p.monto_total_venta=(select MAX(monto_total_venta)FROM pedidos WHERE id_cliente=p.id_cliente) LIMIT 5";
         return entityManager.createNativeQuery(sql).getResultList();
     }
 }
