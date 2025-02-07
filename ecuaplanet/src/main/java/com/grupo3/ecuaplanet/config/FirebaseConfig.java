@@ -16,16 +16,12 @@ public class FirebaseConfig {
     @Bean
     public FirebaseApp initializeFirebase() throws IOException {
         if (FirebaseApp.getApps().isEmpty()) {
-            System.out.println("Inicializando Firebase..."); // Mensaje al inicio
-
+            System.out.println("Inicializando Firebase..."); 
             InputStream serviceAccount = getClass().getClassLoader().getResourceAsStream("PrivateKey.json");
-
             if (serviceAccount == null) {
                 System.err.println("No se pudo encontrar PrivateKey.json en resources.");
                 throw new IllegalStateException("No se pudo encontrar PrivateKey.json en resources.");
             } else {
-                System.out.println("Archivo PrivateKey.json encontrado en resources.");
-                // Imprime la ruta absoluta del archivo (para depuración)
                 try {
                     File file = new File(getClass().getClassLoader().getResource("PrivateKey.json").getFile());
                     System.out.println("Ruta absoluta del archivo: " + file.getAbsolutePath());
@@ -33,7 +29,6 @@ public class FirebaseConfig {
                     System.err.println("Error al obtener la ruta absoluta del archivo: " + e.getMessage());
                 }
             }
-
 
             try {
                 FirebaseOptions options = FirebaseOptions.builder()
