@@ -24,7 +24,7 @@ public class IngresoService {
             map.put("tipoCliente",row[1]);
             map.put("paisCliente",row[2]);
             map.put("idPedido",row[3]);
-            map.put("montoTotalVenta",row[4]);
+            map.put("montoTotalVenta",((Number) row[4]).doubleValue());
             return map;
         }).toList();
     }
