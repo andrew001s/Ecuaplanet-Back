@@ -25,7 +25,6 @@ public class FirebaseConfig {
                 throw new IllegalStateException("No se pudo encontrar PrivateKey.json en resources.");
             } else {
                 System.out.println("Archivo PrivateKey.json encontrado en resources.");
-
                 // Imprime la ruta absoluta del archivo (para depuración)
                 try {
                     File file = new File(getClass().getClassLoader().getResource("PrivateKey.json").getFile());
