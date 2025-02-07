@@ -23,5 +23,46 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping("/api/user")
 public class FirebaseController {
 
-   
+    @Autowired
+    private FirebaseAuthService firebaseAuthService;
+    private static final Logger logger = LoggerFactory.getLogger(FirebaseController.class);
+    @GetMapping("/preferences")
+    public ResponseEntity<?> getUserPreferences(@RequestHeader("Authorization") String authHeader) {
+        String token = authHeader.replace("Bearer ", "");
+        logger.info("Token recibido: {}", token);
+        try {
+            String uid = firebaseAuthService.verifyToken(token);
+            logger.info("UID obtenido del token: {}", uid);
+            if (uid == null || uid.isEmpty()) { // Verifica si el UID es válido
+                logger.error("UID inválido o vacío.");
+                return ResponseEntity.status(HttpStatus.SC_UNAUTHORIZED).body("Token inválido o UID no encontrado.");
+            }
+
+            logger.info("Intentando obtener datos de Firestore para UID: {}", uid);
+            Map<String, Object> userData = firebaseAuthService.getUserDataFromFirestore(uid);
+
+            if (userData != null && !userData.isEmpty()) { // Verifica si userData no es nulo ni vacío
+                logger.info("Datos del usuario recibidos de Firestore: {}", userData);
+                return ResponseEntity.ok(userData);
+            } else {
+                logger.warn("No se encontraron datos para el usuario con UID: {}", uid); // Log de advertencia
+                return ResponseEntity.status(HttpStatus.SC_NOT_FOUND).body("Usuario no encontrado en Firestore o datos vacíos.");
+            }
+
+        } catch (FirebaseAuthException e) {
+            logger.error("Error de autenticación con Firebase: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.SC_UNAUTHORIZED).body("Token inválido");
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("Error consultando Firestore: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.SC_INTERNAL_SERVER_ERROR).body("Error consultando Firestore");
+        } catch (Exception e) { // Catch genérico para otros errores
+            logger.error("Error inesperado en getUserPreferences: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.SC_INTERNAL_SERVER_ERROR).body("Error inesperado.");
+        }
+    }
+
+    @GetMapping("/test")
+    public ResponseEntity<String> testApi() {
+        return ResponseEntity.ok("API funcionando correctamente");
+    }
 }
