@@ -21,12 +21,6 @@ jobs:
       - name: Build with Maven
         run: mvn clean install -DskipTests
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3.2.0
-        with:
-          name: spring-boot-app
-          path: target/*.jar
-
   deploy:
     runs-on: ubuntu-latest
     needs: build
@@ -34,11 +28,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Download artifact
-        uses: actions/download-artifact@v3.2.0
-        with:
-          name: spring-boot-app
 
       - name: Set up AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -54,7 +43,7 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          scp -i ec2-key.pem spring-boot-app.jar ec2-user@<EC2_PUBLIC_IP>:/home/ec2-user/app.jar
+          scp -i ec2-key.pem target/*.jar ec2-user@<EC2_PUBLIC_IP>:/home/ec2-user/app.jar
           ssh -i ec2-key.pem ec2-user@<EC2_PUBLIC_IP> << 'EOF'
             sudo yum update -y
             sudo amazon-linux-extras enable corretto11
