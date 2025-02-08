@@ -18,10 +18,15 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+
+      - name: Navigate to project directory
+        run: cd ecuaplanet/
+
       - name: Build with Maven
-        run: |
-            cd ecuaplanet/
-            mvn clean install -DskipTests
+        run: mvn clean install -DskipTests
+
+      - name: List files in target directory
+        run: ls -l target/
 
   deploy:
     runs-on: ubuntu-latest
@@ -45,10 +50,12 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          scp -i ec2-key.pem target/*.jar ec2-user@54.204.157.26:/home/ec2-user/app.jar
-          ssh -i ec2-key.pem ec2-user@54.204.157.26 << 'EOF'
+          # Reemplaza con la IP pública de tu instancia EC2
+          EC2_PUBLIC_IP="${{ secrets.EC2_PUBLIC_IP }}"
+          scp -i ec2-key.pem target/*.jar ec2-user@$EC2_PUBLIC_IP:/home/ec2-user/app.jar
+          ssh -i ec2-key.pem ec2-user@$EC2_PUBLIC_IP << 'EOF'
             sudo yum update -y
-            sudo amazon-linux-extras enable corretto11
+            sudo amazon-linux-extras enable corretto17
             sudo yum install java-17-amazon-corretto -y
             nohup java -jar /home/ec2-user/app.jar > app.log 2>&1 &
           EOF
