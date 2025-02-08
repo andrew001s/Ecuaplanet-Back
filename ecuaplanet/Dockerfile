@@ -11,7 +11,7 @@ COPY ecuaplanet/.env.template /app/.env
 COPY ecuaplanet/src/main/resources/PrivateKeyTemplate.json /app/PrivateKey.json
 
 # Copiar el archivo JAR
-COPY target/ecuaplanet-0.0.1-SNAPSHOT.jar /app/ecuaplanet.jar
+COPY ecuaplanet/target/ecuaplanet-0.0.1-SNAPSHOT.jar /app/ecuaplanet.jar
 
 # Exponer el puerto 8080
 EXPOSE 8080
