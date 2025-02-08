@@ -19,7 +19,7 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
       - name: Navigate to project directory
-        run: cd ecuaplanet  
+        run: cd ecuaplanet/  
       - name: Build with Maven
         run: mvn clean install -DskipTests
 
