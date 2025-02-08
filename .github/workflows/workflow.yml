@@ -44,14 +44,12 @@ jobs:
         run: |
           echo "${{ secrets.EC2_KEY_PAIR }}" > Ecuaplanet.pem
           chmod 400 Ecuaplanet.pem
-      - name: Verificar contenido de directorios
-        run: |
-            ls -R ecuaplanet/target
-            ls -R
+      - name: Verificar contenido del directorio raíz
+        run: ls -R
         
       - name: Deploy to EC2
         run: |
-          scp -i Ecuaplanet.pem ecuaplanet/target/ecuaplanet-0.0.1-SNAPSHOT.jar ec2-user@54.204.157.26:/home/ec2-user/app.jar
+          scp -i Ecuaplanet.pem /home/runner/work/Ecuaplanet-Back/Ecuaplanet-Back/ecuaplanet-0.0.1-SNAPSHOT.jar ec2-user@54.204.157.26:/home/ec2-user/app.jar
           ssh -i Ecuaplanet.pem ec2-user@54.204.157.26 << 'EOF'
             sudo yum update -y
             sudo amazon-linux-extras enable corretto11
