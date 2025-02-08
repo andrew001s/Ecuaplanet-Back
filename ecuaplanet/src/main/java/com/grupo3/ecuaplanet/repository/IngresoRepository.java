@@ -7,14 +7,14 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class IngresoRepository{
+public class IngresoRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<Object[]> obtenerPedidoMayorVenta(){
-        String sql="SELECT cl.nombre_cliente,cl.pais_cliente,CAST(p.fecha_venta AS DATE),p.monto_total_venta"+
-        " FROM pedidos p JOIN clientes cl ON p.id_cliente = cl.id_cliente"+
-        " WHERE p.monto_total_venta=(select MAX(monto_total_venta)FROM pedidos WHERE id_cliente=p.id_cliente) LIMIT 5";
+    public List<Object[]> obtenerPedidoMayorVenta() {
+        String sql = "SELECT cl.nombre_cliente,cl.pais_cliente,CAST(p.fecha_venta AS DATE),p.monto_total_venta" +
+                " FROM pedidos p JOIN clientes cl ON p.id_cliente = cl.id_cliente" +
+                " WHERE p.monto_total_venta=(select MAX(monto_total_venta)FROM pedidos WHERE id_cliente=p.id_cliente) LIMIT 5";
         return entityManager.createNativeQuery(sql).getResultList();
     }
 }
