@@ -35,29 +35,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: spring-boot-app
-
       - name: Set up AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-
-      - name: Save key and set permissions
-        run: |
-          echo "${{ secrets.EC2_KEY_PAIR }}" > ec2-key.pem
-          chmod 400 ec2-key.pem
+          aws-region: us-east-1  # Cambia la región si es necesario
 
       - name: Deploy to EC2
         run: |
-          scp -i ec2-key.pem spring-boot-app.jar ec2-user@<EC2_PUBLIC_IP>:/home/ec2-user/app.jar
-          ssh -i ec2-key.pem ec2-user@<EC2_PUBLIC_IP> << 'EOF'
-            sudo yum update -y
-            sudo amazon-linux-extras enable corretto11
-            sudo yum install java-11-amazon-corretto -y
-            nohup java -jar /home/ec2-user/app.jar > app.log 2>&1 &
+          scp -i ${{ secrets.EC2_KEY_PAIR }} target/*.jar ec2-user@<EC2_PUBLIC_IP>:/home/ec2-user/app.jar
+          ssh -i ${{ secrets.EC2_KEY_PAIR }} ec2-user@<EC2_PUBLIC_IP> << 'EOF'
+            java -jar /home/ec2-user/app.jar &
           EOF
