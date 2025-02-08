@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
 @RequestMapping("/chat")
 public class RedisController {
@@ -23,17 +22,14 @@ public class RedisController {
 
     @GetMapping("/history")
     public List<Message> getChatHistory(@RequestParam String key) {
-        return  redisService.getMessages(key);
+        return redisService.getMessages(key);
     }
-    
-     @PostMapping("/send")
+
+    @PostMapping("/send")
     public String sendMessage(@RequestBody Message message) {
-        // Clave de Redis donde se guardarán los mensajes
         String key = message.getId();
-        
-        // Insertar mensaje en Redis
         redisService.insertMessage(key, message);
-        
+
         return "Mensaje enviado";
     }
 }

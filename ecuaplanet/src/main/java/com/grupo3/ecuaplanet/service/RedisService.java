@@ -20,42 +20,32 @@ public class RedisService {
     private RedisTemplate<String, Object> redisTemplate;
 
     public List<Message> getMessages(String key) {
-        // Recuperar los objetos en la lista de Redis
         List<Object> messageJsonObjectList = redisTemplate.opsForList().range(key, 0, -1);
-
-        // Si no hay mensajes en Redis, devolver una lista vacía
         if (messageJsonObjectList == null || messageJsonObjectList.isEmpty()) {
-            return List.of(); // Devuelve una lista vacía
+            return List.of(); 
         }
-
-        // Convertir los objetos de Redis a cadenas JSON
         List<String> messageJsonList = messageJsonObjectList.stream()
-                .map(Object::toString) // Convierte cada objeto a cadena
+                .map(Object::toString) 
                 .collect(Collectors.toList());
-
-        // Crear un ObjectMapper para deserializar las cadenas JSON a objetos Message
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         try {
-            // Deserializa cada mensaje JSON a un objeto Message
             return messageJsonList.stream()
                     .map(json -> {
                         try {
-                            // Deserializar cada cadena JSON a un objeto Message
                             return objectMapper.readValue(json, Message.class);
                         } catch (Exception e) {
                             e.printStackTrace();
-                            return null; // Si ocurre un error de deserialización, devolver null
+                            return null; 
                         }
                     })
-                    .filter(message -> message != null) // Filtrar los mensajes nulos (en caso de error de
-                                                        // deserialización)
+                    .filter(message -> message != null)
                     .collect(Collectors.toList());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null; // En caso de error general, devolver null
+        return null;
     }
 
     @PostConstruct

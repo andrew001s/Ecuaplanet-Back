@@ -11,7 +11,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 public class RedisConfig {
-    
+
     @Value("${spring.data.redis.host}")
     private String host;
 
@@ -27,16 +27,11 @@ public class RedisConfig {
     public RedisTemplate<String, Object> redisTemplate() {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory());
-                template.setKeySerializer(new StringRedisSerializer());
-
-        // Configura el serializador de valores para manejar objetos (JSON) con UTF-8
+        template.setKeySerializer(new StringRedisSerializer());
         template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
-
-        // Asegúrate de que el hash también use UTF-8
         template.setHashKeySerializer(new StringRedisSerializer());
         template.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
         return template;
     }
 
-    
 }
