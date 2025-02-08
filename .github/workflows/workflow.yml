@@ -44,13 +44,13 @@ jobs:
 
       - name: Save key and set permissions
         run: |
-          echo "${{ secrets.EC2_KEY_PAIR }}" > ec2-key.pem
-          chmod 400 ec2-key.pem
+          echo "${{ secrets.EC2_KEY_PAIR }}" > Ecuaplanet.pem
+          chmod 400 Ecuaplanet.pem
 
       - name: Deploy to EC2
         run: |
-          scp -i ec2-key.pem ecuaplanet/target/*.jar ec2-user@54.204.157.26:/home/ec2-user/app.jar
-          ssh -i ec2-key.pem ec2-user@54.204.157.26 << 'EOF'
+          scp -i Ecuaplanet.pem ecuaplanet/target/*.jar ec2-user@54.204.157.26:/home/ec2-user/app.jar
+          ssh -i Ecuaplanet.pem ec2-user@54.204.157.26 << 'EOF'
             sudo yum update -y
             sudo amazon-linux-extras enable corretto11
             sudo yum install java-17-amazon-corretto -y
