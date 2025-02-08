@@ -44,8 +44,10 @@ jobs:
         run: |
           echo "${{ secrets.EC2_KEY_PAIR }}" > Ecuaplanet.pem
           chmod 400 Ecuaplanet.pem
-      - name: Verificar contenido del directorio raíz
-        run: ls -R
+          
+      - name: Verificar archivos generados en target
+        run: ls -R ecuaplanet/target
+        
         
       - name: Deploy to EC2
         run: |
