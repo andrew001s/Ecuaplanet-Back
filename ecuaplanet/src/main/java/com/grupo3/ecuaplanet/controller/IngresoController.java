@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 //import org.springframework.web.bind.annotation.RequestParam;
 
-@CrossOrigin(origins="*")
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/ingresos")
 public class IngresoController {
     private final IngresoService ingresoService;
@@ -20,7 +20,7 @@ public class IngresoController {
     public IngresoController(IngresoService ingresoService){
         this.ingresoService=ingresoService;
     }
-
+    
     @GetMapping("/max-venta")
     public List<Map<String,Object>> obtenerPedidoMayorVenta() {
         return ingresoService.obtenerPedidoMayorVenta();
