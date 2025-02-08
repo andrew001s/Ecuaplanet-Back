@@ -36,7 +36,9 @@ jobs:
           MY_ENV_FILE: ${{ secrets.MY_ENV_FILE }}
           MY_PRIVATE_KEY: ${{ secrets.MY_PRIVATE_KEY }}
       - name: Build Docker image
-        run: docker build --no-cache -t andrew0010/ecuaplanet:latest ./ecuaplanet
+        run: |
+            ls -la
+            docker build --no-cache -t andrew0010/ecuaplanet:latest ./ecuaplanet
 
       - name: Publish Docker image
         run: docker push andrew0010/ecuaplanet:latest
