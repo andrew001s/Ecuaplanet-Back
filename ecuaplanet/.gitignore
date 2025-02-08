@@ -31,8 +31,11 @@ build/
 
 ### VS Code ###
 .vscode/
+
 #Archivos sensibles
 ecuaplanet/src/main/resources/PrivateKey.json
 #Configuracion del entorno
 .env
 *.env
+
+
