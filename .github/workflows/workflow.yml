@@ -28,7 +28,7 @@ jobs:
       - name: Login to DockerHub
         run: docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
       - name: Build Docker image
-        run: docker build -t ecuaplanet .
+        run: docker build -t ecuaplanet ./ecuaplanet
       - name: Publish Docker image
         run: docker push ecuaplanet:latest
 
