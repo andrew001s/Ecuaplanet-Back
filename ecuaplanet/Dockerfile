@@ -1,7 +1,20 @@
-FROM eclipse-temurin:17-jdk-alpine
+# Usar una imagen base de OpenJDK
+FROM openjdk:17-jdk-slim
+
+# Establecer el directorio de trabajo
 WORKDIR /app
-COPY src/main/resources/PrivateKey.json /app/src/main/resources/PrivateKey.json
-COPY ecuaplanet/.env /app/.env
-COPY target/ecuaplanet-0.0.1-SNAPSHOT.jar ecuaplanet.jar
+
+# Copiar el archivo .env.template y renombrarlo como .env
+COPY ecuaplanet/.env.template /app/.env
+
+# Copiar el archivo PrivateKeyTemplate.json
+COPY ecuaplanet/src/main/resources/PrivateKeyTemplate.json /app/PrivateKey.json
+
+# Copiar el archivo JAR
+COPY ecuaplanet/target/ecuaplanet-0.0.1-SNAPSHOT.jar /app/ecuaplanet.jar
+
+# Exponer el puerto 8080
 EXPOSE 8080
-CMD ["java", "-jar", "ecuaplanet.jar"]
+
+# Configurar la ejecución del contenedor
+ENTRYPOINT ["java", "-jar", "/app/ecuaplanet.jar"]
