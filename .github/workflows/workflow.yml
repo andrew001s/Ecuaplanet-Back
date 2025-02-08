@@ -30,15 +30,15 @@ jobs:
       - name: Build Docker image
         run: docker build -t ecuaplanet ./ecuaplanet
       - name: Publish Docker image
-        run: docker push ecuaplanet:latest
+        run: docker push andrew0010/ecuaplanet:latest
 
   deploy:
     needs: build
     runs-on: [aws-ec2]
     steps:
         - name: Pull Docker image
-          run: docker pull ecuaplanet:latest
+          run: docker pull andrew0010/ecuaplanet:latest
         - name: Delete old container
           run: docker rm -f springboot || true
         - name: Run Docker container
-          run: docker run -d -p 8080:8080 --name springboot ecuaplanet
+          run: docker run -d -p 8080:8080 --name andrew0010/springboot ecuaplanet
