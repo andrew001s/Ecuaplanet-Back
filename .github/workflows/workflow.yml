@@ -45,8 +45,8 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          scp -i ec2-key.pem target/*.jar ec2-user@<EC2_PUBLIC_IP>:/home/ec2-user/app.jar
-          ssh -i ec2-key.pem ec2-user@<EC2_PUBLIC_IP> << 'EOF'
+          scp -i ec2-key.pem target/*.jar ec2-user@54.204.157.26:/home/ec2-user/app.jar
+          ssh -i ec2-key.pem ec2-user@54.204.157.26 << 'EOF'
             sudo yum update -y
             sudo amazon-linux-extras enable corretto11
             sudo yum install java-17-amazon-corretto -y
