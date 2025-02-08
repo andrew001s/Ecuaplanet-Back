@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.time.LocalDate;
+import java.sql.Date;
 
 @Service
 public class IngresoService {
@@ -21,10 +23,13 @@ public class IngresoService {
         return resultados.stream().map(row ->{
             Map<String,Object> map = new HashMap<>();
             map.put("nombreCliente",row[0]);
-            map.put("tipoCliente",row[1]);
-            map.put("paisCliente",row[2]);
-            map.put("idPedido",row[3]);
-            map.put("montoTotalVenta",((Number) row[4]).doubleValue());
+            map.put("paisCliente",row[1]);
+            if(row[2] instanceof Date){
+                map.put("fechaVenta",((Date) row[3]).toLocalDate());
+            }else{
+                map.put("fechaVenta",null);
+            }
+            map.put("montoTotalVenta",((Number) row[3]).doubleValue());
             return map;
         }).toList();
     }
