@@ -29,7 +29,6 @@ public class FirebaseController {
     @GetMapping("/preferences")
     public ResponseEntity<?> getUserPreferences(@RequestHeader("Authorization") String authHeader) {
         String token = authHeader.replace("Bearer ", "");
-        logger.info("Token recibido: {}", token);
         try {
             String uid = firebaseAuthService.verifyToken(token);
             logger.info("UID obtenido del token: {}", uid);
