@@ -27,12 +27,12 @@ jobs:
 
       - name: Login to DockerHub
         run: docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
-      - name: Create .env and PrivateKeyTemplate.json files
+      - name: Create .env and PrivateKey.json files
         run: |
           cd ecuaplanet/
           mkdir -p src/main/resources  
           echo "$MY_ENV_FILE" > .env
-          echo "$MY_PRIVATE_KEY" > src/main/resources/PrivateKeyTemplate.json
+          echo "$MY_PRIVATE_KEY" > src/main/resources/PrivateKey.json
         env:
           MY_ENV_FILE: ${{ secrets.MY_ENV_FILE }}
           MY_PRIVATE_KEY: ${{ secrets.MY_PRIVATE_KEY }}
