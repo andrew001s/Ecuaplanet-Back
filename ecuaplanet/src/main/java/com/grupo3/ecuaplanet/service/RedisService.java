@@ -1,5 +1,6 @@
 package com.grupo3.ecuaplanet.service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,7 +32,7 @@ public class RedisService {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         try {
-            return messageJsonList.stream()
+            List<Message> messages = messageJsonList.stream()
                     .map(json -> {
                         try {
                             return objectMapper.readValue(json, Message.class);
@@ -42,6 +43,8 @@ public class RedisService {
                     })
                     .filter(message -> message != null)
                     .collect(Collectors.toList());
+            Collections.reverse(messages);
+            return messages;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -58,10 +61,7 @@ public class RedisService {
         String keyredis = "chat:history:" + key;
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            // Convertir el objeto Message a JSON
             String messageJson = objectMapper.writeValueAsString(message);
-
-            // Insertar el mensaje en Redis (agregarlo al final de la lista)
             redisTemplate.opsForList().leftPush(keyredis, messageJson);
             System.out.println("Mensaje insertado en Redis: " + messageJson);
         } catch (Exception e) {
