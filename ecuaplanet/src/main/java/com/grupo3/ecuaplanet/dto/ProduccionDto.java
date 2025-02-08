@@ -12,9 +12,10 @@ public class ProduccionDto {
     private Timestamp fechaIngreso;
     private double valor;
     private String estadoBonche;
+    private double similarity;
 
     public ProduccionDto(String nombreVariedad, String colorVariedad, int largoBonche, int tallosPorBonche,
-            Timestamp fechaIngreso, double valor, String estadoBonche) {
+            Timestamp fechaIngreso, double valor, String estadoBonche, double similarity) {
         this.nombreVariedad = nombreVariedad;
         this.colorVariedad = colorVariedad;
         this.largoBonche = largoBonche;
@@ -22,6 +23,7 @@ public class ProduccionDto {
         this.fechaIngreso = fechaIngreso;
         this.valor = valor;
         this.estadoBonche = estadoBonche;
+        this.similarity = similarity;
     }
 
     public String getNombreVariedad() {
@@ -78,6 +80,14 @@ public class ProduccionDto {
 
     public void setEstadoBonche(String estadoBonche) {
         this.estadoBonche = estadoBonche;
+    }
+
+    public double getSimilarity() {
+        return similarity;
+    }
+
+    public void setSimilarity(double similarity) {
+        this.similarity = similarity;
     }
 
 }

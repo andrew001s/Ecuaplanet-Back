@@ -13,9 +13,6 @@ public class ProduccionService {
     @Autowired
     private ProduccionBonchesRepository produccionBonchesRepository;
 
-    public List<ProduccionDto> obtenerProduccion() {
-        return produccionBonchesRepository.obtenerProduccion();
-    }
 
     public String listToString(List<ProduccionDto> lista){
         String text = "Nombre Variedad|Color Variedad|Largo Bonche|Tallos Por Bonche|Fecha Ingreso|Valor|Estado Bonche \n";
@@ -30,6 +27,10 @@ public class ProduccionService {
                     " \n";
         }
         return text;
+    }
+
+    public List<ProduccionDto> obtenerProduccion(String queryVector) {
+        return produccionBonchesRepository.obtenerProduccion(queryVector);
     }
 
 }

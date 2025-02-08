@@ -6,17 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.grupo3.ecuaplanet.dto.CultivoDto;
-import com.grupo3.ecuaplanet.repository.IngresoMallaRepository;
+import com.grupo3.ecuaplanet.repository.CultivoRepository;
 
 @Service
 public class CultivoService {
 
     @Autowired
-    private IngresoMallaRepository ingresoMallaRepository;
-
-    public List<CultivoDto> obtenercultivo() {
-        return ingresoMallaRepository.obtenercultivo();
-    }
+    private CultivoRepository ingresoMallaRepository;
 
     public String listToString(List<CultivoDto> list) {
         
@@ -33,4 +29,9 @@ public class CultivoService {
         }
         return text;
     }
+
+    public List<CultivoDto> obtenercultivo(String queryVector) {
+        return ingresoMallaRepository.obtenercultivo(queryVector);
+    }
+
 }
