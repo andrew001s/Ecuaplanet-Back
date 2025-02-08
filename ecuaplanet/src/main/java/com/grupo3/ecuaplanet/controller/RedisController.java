@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.grupo3.ecuaplanet.model.Message;
 import com.grupo3.ecuaplanet.service.RedisService;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/chat")
+@CrossOrigin(origins = "*")
 public class RedisController {
 
     @Autowired
