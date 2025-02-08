@@ -6,7 +6,7 @@ public interface GeminiConstants {
             + " floricola. \n"
             + //
             "Responde las preguntas del usuario basándote *únicamente* en la siguiente información"
-            + " extraída de la base de datos.\n"
+            + " extraída de la base de datos. e ignora el score\n"
             + //
             "Si no puedes responder la pregunta con la información dada, responde: \"No tengo"
             + " información suficiente para responder esa pregunta\". \n"
