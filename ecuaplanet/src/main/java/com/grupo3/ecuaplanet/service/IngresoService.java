@@ -25,7 +25,7 @@ public class IngresoService {
             map.put("nombreCliente",row[0]);
             map.put("paisCliente",row[1]);
             if(row[2] instanceof Date){
-                map.put("fechaVenta",((Date) row[3]).toLocalDate());
+                map.put("fechaVenta",((Date) row[2]).toLocalDate());
             }else{
                 map.put("fechaVenta",null);
             }
