@@ -15,7 +15,6 @@ public class EcuaplanetApplication {
         System.setProperty("POSTGRES_PASSWORD", dotenv.get("POSTGRES_PASSWORD"));
         System.setProperty("REDIS_HOST", dotenv.get("REDIS_HOST"));
         System.setProperty("REDIS_PORT", dotenv.get("REDIS_PORT"));
-
         SpringApplication.run(EcuaplanetApplication.class, args);
     }
 }
