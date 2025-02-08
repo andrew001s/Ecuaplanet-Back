@@ -27,12 +27,15 @@ jobs:
 
       - name: Login to DockerHub
         run: docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
-      
-      - name: Build Docker image
+      - name: Create .env and PrivateKeyTemplate.json files
         run: |
-            cd ecuaplanet/
-            ls -la
-            docker build --no-cache -t andrew0010/ecuaplanet:latest .
+          echo "$MY_ENV_FILE" > .env
+          echo "$MY_PRIVATE_KEY" > src/main/resources/PrivateKeyTemplate.json
+        env:
+          MY_ENV_FILE: ${{ secrets.MY_ENV_FILE }}
+          MY_PRIVATE_KEY: ${{ secrets.MY_PRIVATE_KEY }}
+      - name: Build Docker image
+        run: docker build --no-cache -t andrew0010/ecuaplanet:latest ./ecuaplanet
 
       - name: Publish Docker image
         run: docker push andrew0010/ecuaplanet:latest
