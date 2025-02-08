@@ -29,6 +29,7 @@ jobs:
         run: docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
       - name: Create .env and PrivateKeyTemplate.json files
         run: |
+          cd ecuaplanet/
           mkdir -p src/main/resources  
           echo "$MY_ENV_FILE" > .env
           echo "$MY_PRIVATE_KEY" > src/main/resources/PrivateKeyTemplate.json
@@ -37,7 +38,7 @@ jobs:
           MY_PRIVATE_KEY: ${{ secrets.MY_PRIVATE_KEY }}
       - name: Build Docker image
         run: |
-            ls -la
+            ls -la ./ecuaplanet
             docker build --no-cache -t andrew0010/ecuaplanet:latest ./ecuaplanet
 
       - name: Publish Docker image
