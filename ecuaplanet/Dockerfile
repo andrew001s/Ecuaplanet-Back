@@ -2,6 +2,6 @@ FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
 COPY target/ecuaplanet-0.0.1-SNAPSHOT.jar ecuaplanet.jar
 COPY .env /app/.env
-COPY ecuaplanet/src/resource/Private.json /app/ecuaplanet/src/resource/PrivateKey.json
+COPY ecuaplanet/src/resource/PrivateKey.json /app/ecuaplanet/src/resource/PrivateKey.json
 EXPOSE 8080
 CMD ["java", "-jar", "ecuaplanet.jar"]
