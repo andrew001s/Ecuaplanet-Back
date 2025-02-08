@@ -30,8 +30,8 @@ jobs:
       
       - name: Build Docker image
         run: |
-            cd ..
-            docker build --no-cache -t andrew0010/ecuaplanet:latest .
+            ls -la
+            docker build --no-cache -t andrew0010/ecuaplanet:latest ./ecuaplanet
 
       - name: Publish Docker image
         run: docker push andrew0010/ecuaplanet:latest
