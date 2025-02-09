@@ -33,13 +33,13 @@ jobs:
           echo "$MY_ENV_FILE" > .env
           echo "$MY_PRIVATE_KEY" > PrivateKey.json
           mkdir -p src/main/resources/
-          cp PrivateKey.json src/main/resources/
+          mv PrivateKey.json src/main/resources/
         env:
           MY_ENV_FILE: ${{ secrets.MY_ENV_FILE }}
           MY_PRIVATE_KEY: ${{ secrets.MY_PRIVATE_KEY }}
       - name: Build Docker image
         run: |
-            ls -l ecuaplanet/
+            ls -l ecuaplanet/src/main/resources/
             docker build --no-cache -t andrew0010/ecuaplanet:latest ./ecuaplanet
 
       - name: Publish Docker image
