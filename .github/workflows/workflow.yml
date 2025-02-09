@@ -37,9 +37,15 @@ jobs:
         env:
           MY_ENV_FILE: ${{ secrets.MY_ENV_FILE }}
           MY_PRIVATE_KEY: ${{ secrets.MY_PRIVATE_KEY }}
+      - name: Debug file content
+        run: |
+          echo "Listing src/main/resources content:"
+          ls -l ecuaplanet/src/main/resources/
+          cat ecuaplanet/src/main/resources/PrivateKey.json
+
       - name: Build Docker image
         run: |
-            realpath  ecuaplanet/src/main/resources/PrivateKey.json
+            ls -l ecuaplanet/src/main/resources/
             docker build --no-cache -t andrew0010/ecuaplanet:latest ./ecuaplanet
 
       - name: Publish Docker image
