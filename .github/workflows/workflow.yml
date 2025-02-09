@@ -30,9 +30,8 @@ jobs:
       - name: Create .env and PrivateKey.json files
         run: |
           cd ecuaplanet/
-          mkdir -p src/main/resources  
           echo "$MY_ENV_FILE" > .env
-          echo "$MY_PRIVATE_KEY" > src/main/resources/PrivateKey.json
+          echo "$MY_PRIVATE_KEY" > PrivateKey.json
         env:
           MY_ENV_FILE: ${{ secrets.MY_ENV_FILE }}
           MY_PRIVATE_KEY: ${{ secrets.MY_PRIVATE_KEY }}
