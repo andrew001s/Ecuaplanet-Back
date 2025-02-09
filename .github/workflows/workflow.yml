@@ -32,6 +32,7 @@ jobs:
           cd ecuaplanet/
           echo "$MY_ENV_FILE" > .env
           echo "$MY_PRIVATE_KEY" > PrivateKey.json
+          mkdir -p src/main/resources/
           cp PrivateKey.json src/main/resources/
         env:
           MY_ENV_FILE: ${{ secrets.MY_ENV_FILE }}
