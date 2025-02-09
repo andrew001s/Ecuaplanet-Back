@@ -39,7 +39,7 @@ jobs:
           MY_PRIVATE_KEY: ${{ secrets.MY_PRIVATE_KEY }}
       - name: Build Docker image
         run: |
-            ls -la src/main/resources/
+            ls -la 
             docker build --no-cache -t andrew0010/ecuaplanet:latest ./ecuaplanet
 
       - name: Publish Docker image
