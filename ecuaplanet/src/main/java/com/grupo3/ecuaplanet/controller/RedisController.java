@@ -30,7 +30,7 @@ public class RedisController {
 
     @PostMapping("/send")
     public String sendMessage(@RequestBody Message message) {
-        String key = message.getId();
+        String key = message.getUser();
         redisService.insertMessage(key, message);
 
         return "Mensaje enviado";

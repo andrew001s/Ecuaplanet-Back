@@ -58,7 +58,7 @@ public class RedisService {
     }
 
     public void insertMessage(String key, Message message) {
-        String keyredis = "chat:history:" + key;
+        String keyredis = "chat:history:"+message.getCategory()+":" + key;
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             String messageJson = objectMapper.writeValueAsString(message);

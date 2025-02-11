@@ -2,19 +2,21 @@ package com.grupo3.ecuaplanet.model;
 
 public class Message {
     
-    private String id;
+    private String user;
     private String timestamp;
+    private String category;
     private String sender;
     private String message;
 
     public Message() {
     }
 
-    public Message(String timestamp, String sender, String message, String id) {
+    public Message(String timestamp, String sender, String message, String user, String category) {
         this.timestamp = timestamp;
         this.sender = sender;
         this.message = message;
-        this.id = id;
+        this.user = user;
+        this.category = category;
     }
 
     public String getTimestamp() {
@@ -36,12 +38,18 @@ public class Message {
         this.message = message;
     }
 
-    public String getId() {
-        return id;
+    public String getUser() {
+        return user;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUser(String user) {
+        this.user = user;
     }
+
+    public String getCategory() {
+        return category;
+    }
+
+    
     
 }
